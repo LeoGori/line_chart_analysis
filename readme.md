@@ -17,7 +17,7 @@ Notebooks [`2_task_vgg_fine_tuning.ipynb`](https://github.com/LeoGori/line_chart
 
 Notebook [`get_num_lines_from_legend.ipynb`](https://github.com/LeoGori/line_chart_analysis/blob/main/get_num_lines_from_legend.ipynb) implements the line counting task through the vgg16 fine-tuned model, by processing the legend-only images (cropped out by the original dataset). This approach led to interesting results, however imperfect in the case line entries inside the legend were placed horizontally.
 
-Notebook [`3_task_fine_tuning.ipynb`](https://github.com/LeoGori/line_chart_analysis/blob/main/3_task_fine_tuning.ipynb) imlements the model that predicts over all the aforementioned tasks. This approach, however, showed an overfitting behavior for the line counting task, which evidently degraded the performance for the legend localization task.
+Notebook [`3_task_fine_tuning_model.ipynb`](https://github.com/LeoGori/line_chart_analysis/blob/main/3_task_fine_tuning_model.ipynb) imlements the model that predicts over all the aforementioned tasks. This approach, however, showed an overfitting behavior for the line counting task, which evidently degraded the performance for the legend localization task.
 
 ### Results
 Being the localization task a bounding-box regression problem, the accuracy of each model has been analyzed based on the number of predictions that reported satisfying values of IoU metric (which describes the amount of groundtruth area the prediction fulfills), over the whole sets. The gatehred results show the performance of the vgg16 fine-tuned model, for each of the afore-mentioned scenarios.
