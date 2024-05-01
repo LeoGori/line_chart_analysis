@@ -1,26 +1,26 @@
 # Analysis of line charts through CNNs
-This repository contains the source code for the implementation of a neural network model to achieve multiple tasks over line chart images. In particular, 3 tasks have been seeked:
+This repository contains the source code for the implementation of a neural network model to achieve multiple tasks over line chart images. In particular, 3 tasks have been sought:
 - Localizing legend
 - Localizing axis
 - Counting the number of lines
 
 ### Frameworks and languages
-The whole project has been implemented locally with `Python 3.8`, the [`Keras/TensorFlow2`](https://www.tensorflow.org/) platfrom for preprocessing, building and training the model, [`Matplotlib`](https://matplotlib.org/) library for the visualization of the dataset and the usage of [`Google Colab`](https://colab.research.google.com/) for speeding up the process.
+The whole project has been implemented locally with `Python 3.8`, the [`Keras/TensorFlow2`](https://www.tensorflow.org/) platform for preprocessing, building, and training the model, [`Matplotlib`](https://matplotlib.org/) library for the visualization of the dataset and the usage of [`Google Colab`](https://colab.research.google.com/) for speeding up the process.
 
 ### Dataset
-The study has been conducted over the images contained inside the [`FigureSeer`](https://prior.allenai.org/projects/figureseer) dataset, and contained 927 line chart images of different size, each one characterized by a legend and a number of lines between 2 and 10.
+The study has been conducted over the images contained inside the [`FigureSeer`](https://prior.allenai.org/projects/figureseer) dataset and contained 927 line chart images of different sizes, each one characterized by a legend and a number of lines between 2 and 10.
 
 ### Description of the study
-As a first study, a custom model for the task of legend localization has been implemented in [`legend_localization_custom_model.ipynb`](https://github.com/LeoGori/line_chart_analysis/blob/main/legend_localization_custom_model.ipynb) with a standard preprocessing. Secondly, the same custom model has been compared with vgg16 pre-trained model, with the presence of a custom preprocessing in [`legend_localization_model.ipynb`](https://github.com/LeoGori/line_chart_analysis/blob/main/legend_localization_model.ipynb) . The fine tuning approach outperformed the custom model and therefore it has been selected for the rest of the study.
+As a first study, a custom model for the task of legend localization has been implemented in [`legend_localization_custom_model.ipynb`](https://github.com/LeoGori/line_chart_analysis/blob/main/legend_localization_custom_model.ipynb) with a standard preprocessing. Secondly, the same custom model has been compared with vgg16 pre-trained model, with the presence of a custom preprocessing in [`legend_localization_model.ipynb`](https://github.com/LeoGori/line_chart_analysis/blob/main/legend_localization_model.ipynb). The fine-tuning approach outperformed the custom model and therefore it has been selected for the rest of the study.
 
-Notebooks [`2_task_vgg_fine_tuning.ipynb`](https://github.com/LeoGori/line_chart_analysis/blob/main/2_task_vgg_fine_tuning.ipynb) and [`2_task_resnet_fine_tuning.ipynb` ](https://github.com/LeoGori/line_chart_analysis/blob/main/2_task_resnet_fine_tuning.ipynb) implement the mulitask models for the localization of legend and axes over the line graph images, respectively fine tuning pre-trained model vgg16 and ResNet50. Such models have similar performance, however vgg16 showed less overfitting behavior, therefore it has been chosen for the rest of the study.
+Notebooks [`2_task_vgg_fine_tuning.ipynb`](https://github.com/LeoGori/line_chart_analysis/blob/main/2_task_vgg_fine_tuning.ipynb) and [`2_task_resnet_fine_tuning.ipynb` ](https://github.com/LeoGori/line_chart_analysis/blob/main/2_task_resnet_fine_tuning.ipynb) implement the multitask models for the localization of legend and axes over the line graph images, respectively fine-tuning pre-trained model vgg16 and ResNet50. Such models have similar performance, however, vgg16 showed less overfitting behavior, consequently, it has been selected for the rest of the study.
 
 Notebook [`get_num_lines_from_legend.ipynb`](https://github.com/LeoGori/line_chart_analysis/blob/main/get_num_lines_from_legend.ipynb) implements the line counting task through the vgg16 fine-tuned model, by processing the legend-only images (cropped out by the original dataset). This approach led to interesting results, however imperfect in the case line entries inside the legend were placed horizontally.
 
-Notebook [`3_task_fine_tuning_model.ipynb`](https://github.com/LeoGori/line_chart_analysis/blob/main/3_task_fine_tuning_model.ipynb) imlements the model that predicts over all the aforementioned tasks. This approach, however, showed an overfitting behavior for the line counting task, which evidently degraded the performance for the legend localization task.
+Notebook [`3_task_fine_tuning_model.ipynb`](https://github.com/LeoGori/line_chart_analysis/blob/main/3_task_fine_tuning_model.ipynb) implements the model that predicts over all the aforementioned tasks. This approach, however, showed an overfitting behavior for the line counting task, which evidently degraded the performance of the legend localization task.
 
 ### Results
-Being the localization task a bounding-box regression problem, the accuracy of each model has been analyzed based on the number of predictions that reported satisfying values of IoU metric (which describes the amount of groundtruth area the prediction fulfills), over the whole sets. The gatehred results show the performance of the vgg16 fine-tuned model, for each of the afore-mentioned scenarios.
+Being the localization task a bounding-box regression problem, the accuracy of each model has been analyzed based on the number of predictions that reported satisfying values of IoU metric (which describes the amount of ground truth area the prediction fulfills), over the whole sets. The gathered results show the performance of the vgg16 fine-tuned model, for each of the aforementioned scenarios.
 
 Legend localization:
 >    | IoU  | Training set accuracy | Validation set accuracy | Test set accuracy |
